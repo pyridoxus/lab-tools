@@ -2,10 +2,10 @@
 _rcsid="vxi11_scope_test.py,v 1.3 2003/05/30 13:29:23 mendenhall Release-20050805"
 
 import vxi_11
-import graphite
+# import graphite
 import time
 import traceback
-import Numeric
+# import Numeric
 
 try: #if the persistent scope module exists, use it
 	from hp_scope_module import scope
