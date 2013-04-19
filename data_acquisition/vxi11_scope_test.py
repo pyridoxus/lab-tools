@@ -10,23 +10,24 @@ import traceback
 try: #if the persistent scope module exists, use it
 	from hp_scope_module import scope
 except:
-	class hp54542(vxi_11.agilentscope):
-		
-		default_lock_timeout=5000
-		
-		idn_head="HEWLETT-PACKARD,54542C,US36040757" #key this device down to the serial-number level
-		
-		def abort(self): #aborts hang on this device, just override 
-			return 0
-
-	if 0:
-		scope=hp54542(host="129.59.235.196", portmap_proxy_host="127.0.0.1", portmap_proxy_port=1111,
-				 device="gpib0,7",  timeout=4000, device_name="hp54542",
-				raise_on_err=1)
-	else:
-		scope=hp54542(host="129.59.235.196", 
-				 device="gpib0,7",  timeout=5000, device_name="hp54542",
-				raise_on_err=1)
+# 	class hp54542(vxi_11.agilentscope):
+# 		
+# 		default_lock_timeout=5000
+# 		
+# 		idn_head="HEWLETT-PACKARD,54542C,US36040757" #key this device down to the serial-number level
+# 		
+# 		def abort(self): #aborts hang on this device, just override 
+# 			return 0
+# 
+# 	if 0:
+# 		scope=hp54542(host="129.59.235.196", portmap_proxy_host="127.0.0.1", portmap_proxy_port=1111,
+# 				 device="gpib0,7",  timeout=4000, device_name="hp54542",
+# 				raise_on_err=1)
+# 	else:
+# 		scope=hp54542(host="129.59.235.196", 
+# 				 device="gpib0,7",  timeout=5000, device_name="hp54542",
+# 				raise_on_err=1)
+	pass
 
 def dots(color):
 	reddots = graphite.PointPlot()
@@ -126,4 +127,4 @@ def test1():
 		traceback.print_exc()
 		
 			
-test1()
+# test1()
