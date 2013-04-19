@@ -13,7 +13,7 @@ if 0:
 			raise_on_err=1)
 else:
 	scope=my_hp54542(host="172.24.24.30", 
-			 device="gpib0,9",  timeout=5000, device_name="Stuff",
+			 device="gpib0,16",  timeout=5000, device_name="hp54542",
 			raise_on_err=1)
 
 # for i in range(17):
