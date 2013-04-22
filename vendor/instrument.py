@@ -1,5 +1,7 @@
 '''
 Base abstract instrument classes to join all Vendor and SoMat instrument objects
+
+This must become a piece of CTHULU.
 '''
 
 def get_macaddress(host):
