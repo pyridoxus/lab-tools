@@ -1,7 +1,7 @@
 
 import random
 
-from Instruments.instrument import gpibInstrument
+from instrument import gpibInstrument
 from Instruments.Support import connInterface
 from Instruments.Support import pceExceptions
 name = "DMM"
