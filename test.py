@@ -4,8 +4,8 @@ Created on Apr 12, 2013
 @author: cmcculloch
 '''
 
-from data_acquisition.vxi_11 import vxi_11_connection
-from data_acquisition.rpc import PMAP_PORT
+from vendor.vxi_11 import vxi_11_connection
+from vendor.rpc import PMAP_PORT
 
 class Keithley2750(vxi_11_connection):
     '''
