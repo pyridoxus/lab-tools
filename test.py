@@ -18,11 +18,6 @@ class Keithley2750(vxi_11_connection):
         '''
         Initialize the object
         '''
-        # idn_head is used to check that the correct instrument is at the
-        # correct GPIB address. This check is done in the constructor of
-        # vxi_11_connection.
-        self.idn_head = "KEITHLEY INSTRUMENTS"
-         
         vxi_11_connection.__init__(self, host, device, timeout, raise_on_err,
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
@@ -40,11 +35,6 @@ class Agilent33220A(vxi_11_connection):
         '''
         Initialize the object
         '''
-        # idn_head is used to check that the correct instrument is at the
-        # correct GPIB address. This check is done in the constructor of
-        # vxi_11_connection.
-        self.idn_head = "Agilent Technologies,33220A"
-         
         vxi_11_connection.__init__(self, host, device, timeout, raise_on_err,
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
@@ -62,11 +52,6 @@ class KrohnHite523(vxi_11_connection):
         '''
         Initialize the object
         '''
-        # idn_head is used to check that the correct instrument is at the
-        # correct GPIB address. This check is done in the constructor of
-        # vxi_11_connection.
-        self.idn_head = "Krohn-Hite, Model 523"
-         
         vxi_11_connection.__init__(self, host, device, timeout, raise_on_err,
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
@@ -84,11 +69,6 @@ class TEXIO_PEL151_201(vxi_11_connection):
         '''
         Initialize the object
         '''
-        # idn_head is used to check that the correct instrument is at the
-        # correct GPIB address. This check is done in the constructor of
-        # vxi_11_connection.
-        self.idn_head = "*IDN TEXIO,PEL151-201"
-         
         vxi_11_connection.__init__(self, host, device, timeout, raise_on_err,
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)

@@ -588,7 +588,6 @@ class vxi_11_connection:
 		try:
 			self.clear()
 			err, reason, self.__idn = self.transaction("*idn?")
-			print err, reason, self.__idn
 		finally:
 			self.unlock()
 			
