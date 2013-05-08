@@ -28,12 +28,6 @@ class Keithley2750(vxi_11_connection):
                                    portmap_proxy_port)
         
         
-    def getIDN(self):
-        '''
-        Print the IDN information.
-        '''
-        print self.idn
-        
 
 class Agilent33220A(vxi_11_connection):
     '''
@@ -55,12 +49,6 @@ class Agilent33220A(vxi_11_connection):
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
         
-        
-    def getIDN(self):
-        '''
-        Print the IDN information.
-        '''
-        print self.idn
         
 
 class KrohnHite523(vxi_11_connection):
@@ -84,12 +72,6 @@ class KrohnHite523(vxi_11_connection):
                                    portmap_proxy_port)
         
         
-    def getIDN(self):
-        '''
-        Print the IDN information.
-        '''
-        print self.idn
-        
 
 class TEXIO_PEL151_201(vxi_11_connection):
     '''
@@ -111,12 +93,6 @@ class TEXIO_PEL151_201(vxi_11_connection):
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
         
-        
-    def getIDN(self):
-        '''
-        Print the IDN information.
-        '''
-        print self.idn
         
 
 class Instek_PSM_6003(vxi_11_connection):
@@ -140,36 +116,30 @@ class Instek_PSM_6003(vxi_11_connection):
                                    portmap_proxy_port)
         
         
-    def getIDN(self):
-        '''
-        Print the IDN information.
-        '''
-        print self.idn
-        
 
 if __name__ == "__main__":
     dmm = Keithley2750(host="172.24.24.30", 
              device="gpib0,16", raise_on_err=1)
     
-    dmm.getIDN()
+    print dmm.getIDN()
     
     fgen = Agilent33220A(host="172.24.24.30", 
              device="gpib0,10", raise_on_err=1)
     
-    fgen.getIDN()
+    print fgen.getIDN()
  
     dcsource = KrohnHite523(host="172.24.24.30", 
              device="gpib0,2", raise_on_err=1)
     
-    dcsource.getIDN()
+    print dcsource.getIDN()
  
     eload = TEXIO_PEL151_201(host="172.24.24.30", 
              device="gpib0,13", raise_on_err=1)
     
-    eload.getIDN()
+    print eload.getIDN()
     
     powersupply = Instek_PSM_6003(host="172.24.24.30", 
              device="gpib0,9", raise_on_err=1)
     
-    powersupply.getIDN()
+    print powersupply.getIDN()
     

@@ -106,6 +106,8 @@ _VXI_11_enumerated_exceptions={ #common, correctable exceptions
 }
 
 class vxi_11_connection:
+	# Need to modify this code so that it will make a connection without
+	# needing to know the identity of the device.
 	"""vxi_11_connection implements handling of devices compliant with vxi11.1-vxi11.3 protocols, with which
 	the user should have some familiarity"""
 	
@@ -209,6 +211,7 @@ class vxi_11_connection:
 		self.core=None
 		self.abortChannel=None
 		self.mux=None #default is no multiplexer active
+		self.__idn = None
 		
 		if shortname is None:
 			self.shortname=device_name.strip().replace(' ','').replace('\t','')     
@@ -317,7 +320,15 @@ class vxi_11_connection:
 
 		self.connected=1
 
-		self.check_idn()
+		# Not doing this next line because we never know what we have for
+		# connections until the database tells us it's what we are supposed
+		# to have. We simply want to collect the information.
+		#self.check_idn()
+		
+		# Here is where we collect the information from the GPIB instrument
+		# (if there is one at this address).
+		self.queryIDN()
+		
 		self.post_init()            
 
 
@@ -567,6 +578,29 @@ class vxi_11_connection:
 				assert check==0, "Wrong device type! expecting: "+self.idn_head+"... got: "+self.idn
 		else:
 			self.idn="Device *idn? not checked!"
+
+
+	def queryIDN(self):
+		'''
+		Get the ?IDN* information from the GPIB device.
+		'''
+		self.lock()
+		try:
+			self.clear()
+			err, reason, self.__idn = self.transaction("*idn?")
+			print err, reason, self.__idn
+		finally:
+			self.unlock()
+			
+			
+	def getIDN(self):
+		'''
+		Return the IDN.
+		'''
+		return self.__idn
+	
+
+
 
 import copy
 
