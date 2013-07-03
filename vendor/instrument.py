@@ -4,6 +4,8 @@ Base abstract instrument classes to join all Vendor and SoMat instrument objects
 This must become a piece of CTHULU.
 '''
 import socket
+from vendor.vxi_11 import vxi_11_connection
+from vendor.rpc import PMAP_PORT
      
 def getHwAddr(interface, host, port = 80):
     '''
@@ -40,6 +42,23 @@ def getHwAddr(interface, host, port = 80):
     
 
 
+class VXIConnection(vxi_11_connection):
+    '''
+    Define a simple interface to GPIB VXI.
+    '''
+    def __init__(self, host = '127.0.0.1', device = "inst0", timeout = 1000,
+                raise_on_err = None, device_name="None",
+                shortname = None, portmap_proxy_host = None,
+                portmap_proxy_port = PMAP_PORT):
+        '''
+        Initialize the object
+        '''
+        vxi_11_connection.__init__(self, host, device, timeout, raise_on_err,
+                                   device_name, shortname, portmap_proxy_host,
+                                   portmap_proxy_port)
+        
+        
+
 class Instrument(object):
     '''
     Base instrument class.
@@ -54,6 +73,12 @@ class gpibInstrument(Instrument):
     '''
     Subclass of instrument for GPIB type classes.
     '''
+    
+    def __init__(self, deviceName):
+        ''' Set up the VXI connection. '''
+        self.__vxi = VXIConnection(device_name = deviceName)
+
+
     def _getUniqueIdent(self, instrObj):
         ''' Return the result of asking the instrument for its ID. '''
         gpibIdent = instrObj.target.ask("*IDN?")
