@@ -1,9 +1,8 @@
 
 from time import sleep
 
-from Instruments.instrument import gpibInstrument        
-from Instruments.Support import connInterface
-from Instruments.Support import pceExceptions
+from instrument import gpibInstrument        
+from pceExceptions import InstrumentException
 
 name = "Power supply"
 
@@ -12,12 +11,6 @@ class PowerSupplyBase(gpibInstrument):
         power supply abstract base class, do not instantiate 
     '''
     
-    def __init__(self, gpibIp, instrId, channel):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, 
-                                                                instrId)
-        self.channel = channel
-
-
     def inputOff(self):
         raise NotImplementedError, self
         
@@ -99,7 +92,7 @@ class PowerSupplyInstekPsm6003(PowerSupplyBase):
             raiseMsg = errV
             errV = self.target.ask(":SYSTem:ERRor?")
         if raiseMsg != "":            
-            raise pceExceptions.InstrumentException, raiseMsg              
+            raise InstrumentException, raiseMsg              
         return
     
     

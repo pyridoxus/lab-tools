@@ -46,7 +46,7 @@ class VXIConnection(vxi_11_connection):
     '''
     Define a simple interface to GPIB VXI.
     '''
-    def __init__(self, host = '127.0.0.1', device = "inst0", timeout = 1000,
+    def __init__(self, host = '172.24.24.30', device = "inst0", timeout = 1000,
                 raise_on_err = None, device_name="None",
                 shortname = None, portmap_proxy_host = None,
                 portmap_proxy_port = PMAP_PORT):
@@ -57,6 +57,28 @@ class VXIConnection(vxi_11_connection):
                                    device_name, shortname, portmap_proxy_host,
                                    portmap_proxy_port)
         
+        
+    def ask(self, data):
+        '''
+        Interface between the VXI code and PCE-like instruments that used
+        the VISA interface. The data parameter must be a string. The count
+        parameter could be used to take multiple readings, but the VISA
+        driver did not allow this (or we never used it).
+        '''
+        err, reason, data = self.transaction("data",  count = None)
+        if err:
+            raise IndexError    # Need to raise a proper exception later
+        return data
+
+        
+
+    def write(self, data):
+        '''
+        This is basically the same as the "ask" function, but we don't return
+        anything. This is to make it compatible with the VISA way of doing it.
+        '''
+        self.ask(data)
+
         
 
 class Instrument(object):
@@ -74,9 +96,16 @@ class gpibInstrument(Instrument):
     Subclass of instrument for GPIB type classes.
     '''
     
-    def __init__(self, deviceName):
-        ''' Set up the VXI connection. '''
-        self.__vxi = VXIConnection(device_name = deviceName)
+    def __init__(self, host, device, roe):
+        '''
+        Set up the VXI connection. The name "target" is lame, but that's how it
+        was named in PCE. Since we are using instrument code from PCE, we need
+        to keep the same name so that we don't have to redo anything.
+        '''
+        
+        self.target = VXIConnection(host = host,
+                                    device_name = device,
+                                    raise_on_err = roe)
 
 
     def _getUniqueIdent(self, instrObj):
