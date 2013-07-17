@@ -58,6 +58,7 @@ class VXIConnection(vxi_11_connection):
                                    portmap_proxy_port)
         
         
+        
     def ask(self, data):
         '''
         Interface between the VXI code and PCE-like instruments that used
@@ -104,7 +105,7 @@ class gpibInstrument(Instrument):
         '''
         
         self.target = VXIConnection(host = host,
-                                    device_name = device,
+                                    device = device,
                                     raise_on_err = roe)
 
 
