@@ -66,19 +66,19 @@ class VXIConnection(vxi_11_connection):
         parameter could be used to take multiple readings, but the VISA
         driver did not allow this (or we never used it).
         '''
-        err, reason, data = self.transaction("data",  count = None)
+        err, reason, data = self.transaction(data,  count = None)
         if err:
             raise IndexError    # Need to raise a proper exception later
         return data
 
         
 
-    def write(self, data):
-        '''
-        This is basically the same as the "ask" function, but we don't return
-        anything. This is to make it compatible with the VISA way of doing it.
-        '''
-        self.ask(data)
+#     def write(self, data):
+#         '''
+#         This is basically the same as the "ask" function, but we don't return
+#         anything. This is to make it compatible with the VISA way of doing it.
+#         '''
+#         self.ask(data)
 
         
 
