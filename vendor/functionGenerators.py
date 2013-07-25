@@ -1,9 +1,7 @@
 
-from Instruments.instrument import gpibInstrument
+from instrument import gpibInstrument
 
-from Instruments.Support import connInterface
-
-from Instruments.Support.pceExceptions import InstrumentException
+from pceExceptions import InstrumentException
 
 name = "Function Generator"
 
@@ -12,19 +10,6 @@ class FunctionGeneratorsBase(gpibInstrument):
     '''
         Function Generators abstract base class, do not instantiate
     '''
-
-    def __init__(self, gpibIp, instrId):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, instrId)
-        try:
-            self._errorCheck()
-        except InstrumentException:
-            try:
-                #sometimes can get false errors after rebooting cal stand
-                self._errorCheck()  #do it again in case the error was false
-            except InstrumentException:
-                raise
-            
-
 
     def _setWaveform(self, function, low_voltage, high_voltage, frequency):
         raise NotImplementedError, self
@@ -158,10 +143,6 @@ class FunctionGeneratorsAgilent33220A(FunctionGeneratorsBase):
         Agilent/HP 33220A Function Generator
     '''
     
-    def __init__(self, gpibIp, instrId):
-        FunctionGeneratorsBase.__init__(self, gpibIp, instrId)
- 
-        
     def _setWaveform(self, function, low_voltage, high_voltage, frequency):
         amplitude = float(high_voltage) - float(low_voltage)
         offset = (float(high_voltage) + float(low_voltage)) / 2.0

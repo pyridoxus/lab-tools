@@ -2,8 +2,7 @@
 import random
 
 from instrument import gpibInstrument
-from Instruments.Support import connInterface
-from Instruments.Support import pceExceptions
+from pceExceptions import InstrumentException
 name = "DMM"
 
 def modeCheck(func):
@@ -35,10 +34,6 @@ class DmmBase(gpibInstrument):
     
     currentMode = None
     
-    def __init__(self, gpibIp, instrId):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, instrId)
-        
-
     def setDcVoltsMode(self):
         raise NotImplementedError, self
    
@@ -136,7 +131,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":VOLTage:DC:RANGe:AUTO 1")        
         self.target.write(":VOLTage:DC:DIGits 7")     #Set DCV digit resolution
         self.target.write(":VOLTage:DC:AVERage:STATe OFF ")
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     @modeCheck
@@ -245,7 +240,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":TRIGger:COUNt 1")
         self.target.write(":FORMat:ELEMents READ")
         self.target.write(":FREQ:APER 0.1")
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     def getDCVoltRange(self):
@@ -263,7 +258,6 @@ def errorCheckKeithley27xx(target):
     if errV == "":    # Allow one retry
         errV = target.ask(":SYSTem:ERRor?")
         if errV == "":
-            raise pceExceptions.InstrumentException(
-                                            "Instrument not responding")
+            raise InstrumentException("Instrument not responding")
     if errV[0] != '0':
-        raise pceExceptions.InstrumentException(errV)              
+        raise InstrumentException(errV)              
