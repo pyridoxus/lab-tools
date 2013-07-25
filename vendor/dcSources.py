@@ -1,9 +1,8 @@
 
 from time import sleep, clock
 
-from Instruments.instrument import gpibInstrument
-from Instruments.Support import connInterface
-from Instruments.Support import pceExceptions
+from instrument import gpibInstrument
+from pceExceptions import InstrumentException, ThreadKillException
 
 name = "DC Source"
 
@@ -13,9 +12,8 @@ class DcSourcesBase(gpibInstrument):
         DC sources abstract base class, do not instantiate
     '''
     
-    def __init__(self, gpibIp, instrId):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, instrId)
-        
+    def __init__(self, gpibIp, instrId, roe = 1):
+        gpibInstrument.__init__(self, gpibIp, instrId, roe)
         #the following are to be set by the subclasses
         #when calling _getSettleRange()
         self.highSettleLimit = 0.0
@@ -52,7 +50,7 @@ class DcSourcesBase(gpibInstrument):
         for maxMeasurements in range(10):
             if terminateEvent is not None:
                 if terminateEvent.isSet() == True:
-                    raise pceExceptions.ThreadKillException("TERMINATED BY USER")
+                    raise ThreadKillException("TERMINATED BY USER")
             measuredVoltage = (float)(dmmMeasureFunction())
             if measuredVoltage < self.highSettleLimit and\
                     measuredVoltage > self.lowSettleLimit:
@@ -133,7 +131,7 @@ class DcSourcesKrohnHiteEdcSeries(DcSourcesBase):
                     new_range = vr['Max Voltage']
                     break
         if programming_string == None:
-            raise pceExceptions.InstrumentException(
+            raise InstrumentException(
                                         "Requested voltage out of range")
         self.target.write(programming_string)
         if self.last_range == new_range:
@@ -142,7 +140,7 @@ class DcSourcesKrohnHiteEdcSeries(DcSourcesBase):
             sleep(0.3)
         self.last_range = new_range
         if self.target.ask("?") != "NOTHING WRONG":
-            raise pceExceptions.InstrumentException("Programming Error")
+            raise InstrumentException("Programming Error")
 
 
     def appendVoltageRange(self, voltageRanges):
@@ -241,8 +239,8 @@ class DcSourcesKrohnHiteEdc523(DcSourcesBase):
         Krohn Hite EDC 523 DC Calibrator class
     '''
     
-    def __init__(self, gpibIp, instrId):
-        DcSourcesBase.__init__(self, gpibIp, instrId)
+    def __init__(self, gpibIp, instrId, roe = 1):
+        DcSourcesBase.__init__(self, gpibIp, instrId, roe)
 
 
     def crowBar(self, crowBarState = "ON"):
@@ -288,8 +286,10 @@ class DcSourcesKrohnHiteEdc523(DcSourcesBase):
         elif abs(voltage) < 100.0:
             programming_string = "%fV" % (voltage)
         else:
-            raise pceExceptions.InstrumentException(
+            raise InstrumentException(
                                         "Requested voltage out of range")
+            
+        print programming_string
         self.target.write(programming_string)
 
 
