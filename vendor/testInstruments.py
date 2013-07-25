@@ -16,9 +16,9 @@ if __name__ == "__main__":
 #     sleep(10)
 #     powerSupply.inputOff()
     
-#     dmm = DmmKeithley2750("172.24.24.30", "gpib0,16", 1)
-#     dmm.setDcVoltsMode()
-#     print dmm.takeMeasurement()
+    dmm = DmmKeithley2750("172.24.24.30", "gpib0,16", 1)
+    dmm.setDcVoltsMode()
+    print dmm.takeMeasurement()
     
 #     fgen = FunctionGeneratorsAgilent33220A("172.24.24.30", "gpib0,10", 1)
 #     fgen.setSineWave(-1, 1, 1000)

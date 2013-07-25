@@ -1,6 +1,7 @@
 
 import random
 
+from time import sleep
 from instrument import gpibInstrument
 from pceExceptions import InstrumentException
 name = "DMM"
@@ -192,13 +193,14 @@ class DmmKeithley2750(DmmBase):
     def takeMeasurement(self):
         self.target.write(":INIT:IMM")      
         self.target.write("*TRG")             
-        self.target.write(":*OPC") #set bit 0 in ESR when done
-        opc = 0
-        while opc == 0:
-            dmmStatus = ""
-            while dmmStatus == "":
-                dmmStatus = self.target.ask(":*ESR?")
-            opc = int(dmmStatus) & 1
+#         self.target.write(":*OPC") #set bit 0 in ESR when done
+#         opc = 0
+#         while opc == 0:
+#             dmmStatus = ""
+#             while dmmStatus == "":
+#                 dmmStatus = self.target.ask(":*ESR?")
+#             opc = int(dmmStatus) & 1
+        sleep(2.0)
         result = self.target.ask(":FETC?")     
         errorCheckKeithley27xx(self.target)
         return result                          
