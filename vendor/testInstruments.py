@@ -21,7 +21,8 @@ if __name__ == "__main__":
     print dmm.takeMeasurement()
     dmm.setAcVoltsMode()
     print dmm.takeMeasurement()
-    
+    dmm.setDcCurrentMode()
+    print dmm.takeMeasurement()
     
 #     fgen = FunctionGeneratorsAgilent33220A("172.24.24.30", "gpib0,10", 1)
 #     fgen.setSineWave(-1, 1, 1000)

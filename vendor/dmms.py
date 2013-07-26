@@ -158,7 +158,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":CURRent:DC:AVERage:WINDow 1.0")
         self.target.write(":CURRent:DC:AVERage:COUNt 20")
         self.target.write(":CURRent:DC:AVERage:STATe ON ")
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     @modeCheck
