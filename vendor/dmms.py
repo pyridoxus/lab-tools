@@ -145,7 +145,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":VOLTage:AC:AVERage:WINDow 1.0")
         self.target.write(":VOLTage:AC:AVERage:COUNt 20")
         self.target.write(":VOLTage:AC:AVERage:STATe ON ")
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     @modeCheck
@@ -200,7 +200,13 @@ class DmmKeithley2750(DmmBase):
 #             while dmmStatus == "":
 #                 dmmStatus = self.target.ask(":*ESR?")
 #             opc = int(dmmStatus) & 1
-        sleep(2.0)
+
+        # If doing DC volt measurement, need to use 2 second delay
+        #sleep(2.0)
+        
+        # If doing AC volt measurement, need to use  second delay
+        sleep(10.0)
+        
         result = self.target.ask(":FETC?")     
         errorCheckKeithley27xx(self.target)
         return result                          
