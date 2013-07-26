@@ -123,7 +123,18 @@ class DmmVirtual(DmmBase):
 class DmmKeithley2750(DmmBase):
     '''
         Keithley 2750 DMM
-    '''     
+    '''
+    # The following is ugly. It exists because of the transition from the
+    # Windoze Visa drivers and the fact that we don't have the time to do
+    # this properly.     
+    delayDict = {
+        "setDcVoltsMode" : 2.0,
+        "setAcVoltsMode" : 10.0,
+        "setDcCurrentMode" : 4.0,
+        "set2WireResistanceMode" : 4.0,
+        "set4WireResistanceMode" : 4.0,
+        "setFrequencyMode" : 3.0,
+    }
     
     @modeCheck
     def setDcVoltsMode(self):        
@@ -201,23 +212,8 @@ class DmmKeithley2750(DmmBase):
 #                 dmmStatus = self.target.ask(":*ESR?")
 #             opc = int(dmmStatus) & 1
 
-        # If doing DC volt measurement, need to use 2 second delay
-        #sleep(2.0)
-        
-        # If doing AC volt measurement, need to use 10 second delay
-#         sleep(10.0)
-        
-        # If doing DC current measurement, need to use 4 second delay
-#        sleep(4.0)
-        
-        # If doing 2 wire measurement, need to use 2 second delay
-#         sleep(2.0)
-        
-        # If doing 4 wire measurement, need to use 4 second delay
-#         sleep(4.0)
-        
-        # If doing 2 wire measurement, need to use 2 second delay
-        sleep(4.0)
+        print self.currentMode, self.delayDict[self.currentMode] 
+        sleep(self.delayDict[self.currentMode])
         
         result = self.target.ask(":FETC?")     
         errorCheckKeithley27xx(self.target)
