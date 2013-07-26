@@ -168,7 +168,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":RESistance:RANGe:AUTO 1")        
         self.target.write(":RESistance:DIGits 7")     #Set RES digit resolution
         self.target.write(":RESistance:AVERage:STATe OFF" )
-        errorCheckKeithley27xx(self.target)
+#        errorCheckKeithley27xx(self.target)
 
 
     @modeCheck
