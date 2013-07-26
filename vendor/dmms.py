@@ -178,7 +178,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":FRESistance:RANGe:AUTO 1")        
         self.target.write(":FRESistance:DIGits 7")    #Set RES digit resolution
         self.target.write(":FRESistance:AVERage:STATe OFF ")
-        errorCheckKeithley27xx(self.target)
+#        errorCheckKeithley27xx(self.target)
 
 
     @modeCheck
@@ -187,7 +187,7 @@ class DmmKeithley2750(DmmBase):
         self.target.write(":FUNCtion 'FREQ'")
         self.target.write(":FREQuency:DIGits 7")    #Set RES digit resolution
         self.target.write(":FREQuency:THReshold:VOLTage:RANGe 1")        
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     def takeMeasurement(self):

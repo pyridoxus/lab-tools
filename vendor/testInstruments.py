@@ -25,10 +25,14 @@ if __name__ == "__main__":
     print dmm.takeMeasurement()
     dmm.set2WireResistanceMode()
     print dmm.takeMeasurement()
+    dmm.set4WireResistanceMode()
+    print dmm.takeMeasurement()
+    dmm.setFrequencyMode()
+    print dmm.takeMeasurement()
     
 #     fgen = FunctionGeneratorsAgilent33220A("172.24.24.30", "gpib0,10", 1)
 #     fgen.setSineWave(-1, 1, 1000)
     
     dcsource = DcSourcesKrohnHiteEdc523("172.24.24.30", "gpib0,2", 1)
-    print dcsource.setDcVoltage(1)
+    dcsource.setDcVoltage(1)
     
