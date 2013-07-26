@@ -204,8 +204,20 @@ class DmmKeithley2750(DmmBase):
         # If doing DC volt measurement, need to use 2 second delay
         #sleep(2.0)
         
-        # If doing AC volt measurement, need to use  second delay
-        sleep(10.0)
+        # If doing AC volt measurement, need to use 10 second delay
+#         sleep(10.0)
+        
+        # If doing DC current measurement, need to use 4 second delay
+#        sleep(4.0)
+        
+        # If doing 2 wire measurement, need to use 2 second delay
+#         sleep(2.0)
+        
+        # If doing 4 wire measurement, need to use 4 second delay
+#         sleep(4.0)
+        
+        # If doing 2 wire measurement, need to use 2 second delay
+        sleep(4.0)
         
         result = self.target.ask(":FETC?")     
         errorCheckKeithley27xx(self.target)
