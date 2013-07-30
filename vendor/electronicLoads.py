@@ -1,7 +1,6 @@
 
-from Instruments.instrument import gpibInstrument
-from Instruments.Support import connInterface
-from Instruments.Support.pceExceptions import InstrumentException
+from instrument import gpibInstrument
+from pceExceptions import InstrumentException
 
 name = "Electronic load"
 
@@ -11,10 +10,6 @@ class ElectronicLoadBase(gpibInstrument):
         Electronic Load abstract base class, do not instantiate 
     '''
     
-    def __init__(self, gpibIp, instrId):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, 
-                                                                instrId)
-
     def inputOff(self):
         raise NotImplementedError, self
         
@@ -76,11 +71,11 @@ class EloadTexio151_201(ElectronicLoadBase):
         Class for TEXIO Model 151/201 Electronic Load
     '''
     
-    def __init__(self, gpibIp, instrId):
-        ElectronicLoadBase.__init__(self, gpibIp, instrId)
-        self.target.write("EXCON 0")
-        self.target.ask("*ESR?")
-        self.target.ask("*ESR?")    # Clear ESR
+#     def __init__(self, gpibIp, instrId):
+#         ElectronicLoadBase.__init__(self, gpibIp, instrId)
+#         self.target.write("EXCON 0")
+#         self.target.ask("*ESR?")
+#         self.target.ask("*ESR?")    # Clear ESR
 
 
     def __setup(self):
