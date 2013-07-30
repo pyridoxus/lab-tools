@@ -129,7 +129,7 @@ class DmmKeithley2750(DmmBase):
     # this properly.     
     delayDict = {
         "setDcVoltsMode" : 2.0,
-        "setAcVoltsMode" : 10.0,
+        "setAcVoltsMode" : 12.0,
         "setDcCurrentMode" : 4.0,
         "set2WireResistanceMode" : 4.0,
         "set4WireResistanceMode" : 4.0,
