@@ -9,6 +9,7 @@ from dmms import DmmKeithley2750
 from functionGenerators import FunctionGeneratorsAgilent33220A
 from dcSources import DcSourcesKrohnHiteEdc523
 from electronicLoads import EloadTexio151_201
+from switchMatrices import SwitchMatrixKeithley2750
 
 import random
 
@@ -20,6 +21,7 @@ if __name__ == "__main__":
     fgen = FunctionGeneratorsAgilent33220A("172.24.24.30", "gpib0,10", 1)
     dcsource = DcSourcesKrohnHiteEdc523("172.24.24.30", "gpib0,2", 1)
     eload = EloadTexio151_201("172.24.24.30", "gpib0,13", 1)
+    switchMatrix = SwitchMatrixKeithley2750("172.24.24.30", "gpib0,16", 1)
     while True:
         loop += 1
         print "**********************************************************", loop

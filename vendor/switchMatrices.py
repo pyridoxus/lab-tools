@@ -1,10 +1,8 @@
 
 from types import StringType
 
-from Instruments.instrument import gpibInstrument
-from Instruments.Support.pceExceptions import InstrumentException
-from Instruments.Vendor.dmms import errorCheckKeithley27xx
-from Instruments.Support import connInterface
+from instrument import gpibInstrument
+from pceExceptions import InstrumentException
 
 name = "Switch matrices"
 
@@ -14,12 +12,6 @@ class SwitchMatrixBase(gpibInstrument):
         switch matrix abstract base class, do not instantiate 
     '''
     
-    def __init__(self, gpibIp, instrId, instrument_dictionary):
-        self.target = connInterface.connectToInstrumentOverGpib(gpibIp, 
-                                                                instrId)
-        self.instrument_dictionary = instrument_dictionary
-
-
     def openAllSwitches(self):
         raise NotImplementedError, self
         
@@ -117,7 +109,16 @@ class SwitchMatrixKeithley2750(SwitchMatrixBase):
     # 8, for "CS" Testpoint = 141 to 160
     #
     
+    instrument_dictionary = {
+                             'DMM' : 1,
+                             'DMM_SENSE' : 2,
+                             'FGEN' : 3,
+                             'DCSOURCE' : 4,
+                             'ELOAD' : 5,
+                             'XOVER' : 6,
+                             }
     
+        
     def __computeTestPointNumber(self, cpc_connector_pinpair_tuple):
         # cpc_connector = ( 1 to 10 )
         # cpc_pinpair = ( 1 to 16 )
@@ -173,7 +174,7 @@ class SwitchMatrixKeithley2750(SwitchMatrixBase):
     
     def openAllSwitches(self):
         self.target.write(":ROUTE:OPEN:ALL")
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     def openSwitch(self, instrument, cpc_connector_pinpair_tuple):
@@ -181,7 +182,7 @@ class SwitchMatrixKeithley2750(SwitchMatrixBase):
         self.target.write(":ROUTE:MULT:OPEN %s" % 
                           self.__formatSwitchString(
                             self.resolveInstrument(instrument), test_point))
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
 
 
     def closeSwitch(self, instrument, cpc_connector_pinpair_tuple):
@@ -189,7 +190,7 @@ class SwitchMatrixKeithley2750(SwitchMatrixBase):
         self.target.write(":ROUTE:MULT:CLOS %s" % 
                           self.__formatSwitchString(
                             self.resolveInstrument(instrument), test_point))
-        errorCheckKeithley27xx(self.target)
+#         errorCheckKeithley27xx(self.target)
            
             
     def openAllHighCurrentSwitches(self):
