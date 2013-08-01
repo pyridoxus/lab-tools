@@ -26,10 +26,40 @@ if __name__ == "__main__":
         loop += 1
         print "**********************************************************", loop
         powerSupply.setVoltage(random.randint(4, 16), 2, 2)
-#        sleep(10)
-#     
-#         dmm.setDcVoltsMode()
-#         print dmm.takeMeasurement()
+
+        dmm.setDcVoltsMode()
+        switchMatrix.closeSwitch("DMM", (1, 1))
+        switchMatrix.closeSwitch("DCSOURCE", (1, 3))
+        v = random.random()
+        dcsource.setDcVoltage(v)
+        sleep(2)
+        print "dmm  : ", dmm.takeMeasurement(), " DC volts"
+        print "ideal: ", v
+        switchMatrix.openAllSwitches()
+        sleep(1)
+        
+        dmm.setAcVoltsMode()
+        switchMatrix.closeSwitch("DMM", (1, 1))
+        switchMatrix.closeSwitch("FGEN", (1, 3))
+        v = random.random()
+        fgen.setSineWave(-v, v, random.randint(1, 1000))
+        sleep(2)
+        print "dmm  : ", dmm.takeMeasurement(), " AC volts"
+        print "ideal: ", v / 2
+        switchMatrix.openAllSwitches()
+        sleep(1)
+        
+        dmm.setFrequencyMode()
+        switchMatrix.closeSwitch("DMM", (1, 1))
+        switchMatrix.closeSwitch("FGEN", (1, 3))
+        v = random.randint(1, 1000)
+        fgen.setSineWave(-1, 1, v)
+        sleep(2)
+        print "dmm  : ", dmm.takeMeasurement(), " Hertz"
+        print "ideal: ", v
+        switchMatrix.openAllSwitches()
+        sleep(1)
+        
 #         dmm.setAcVoltsMode()
 #         print dmm.takeMeasurement()
 #         dmm.setDcCurrentMode()

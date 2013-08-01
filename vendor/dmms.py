@@ -129,11 +129,11 @@ class DmmKeithley2750(DmmBase):
     # this properly.     
     delayDict = {
         "setDcVoltsMode" : 2.0,
-        "setAcVoltsMode" : 12.0,
+        "setAcVoltsMode" : 16.0,
         "setDcCurrentMode" : 4.0,
         "set2WireResistanceMode" : 4.0,
         "set4WireResistanceMode" : 4.0,
-        "setFrequencyMode" : 3.0,
+        "setFrequencyMode" : 4.0,
     }
     
     @modeCheck
@@ -212,7 +212,6 @@ class DmmKeithley2750(DmmBase):
 #                 dmmStatus = self.target.ask(":*ESR?")
 #             opc = int(dmmStatus) & 1
 
-        print self.currentMode, self.delayDict[self.currentMode] 
         sleep(self.delayDict[self.currentMode])
         
         result = self.target.ask(":FETC?")     

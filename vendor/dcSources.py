@@ -289,7 +289,6 @@ class DcSourcesKrohnHiteEdc523(DcSourcesBase):
             raise InstrumentException(
                                         "Requested voltage out of range")
             
-        print programming_string
         self.target.write(programming_string)
 
 

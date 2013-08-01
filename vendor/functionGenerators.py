@@ -152,7 +152,7 @@ class FunctionGeneratorsAgilent33220A(FunctionGeneratorsBase):
         self.target.write("OUTPut:LOAD INFinity")
         self.target.write("OUTPut ON")
         self.target.write("FUNCtion:SHAPe %s" % function)
-        self._errorCheck()
+#         self._errorCheck()
 
         
     def _errorCheck(self):
@@ -164,7 +164,7 @@ class FunctionGeneratorsAgilent33220A(FunctionGeneratorsBase):
                 
     def setDcVoltage(self, voltage):
         self.target.write("APPLy:DC DEFault, DEFault, %f" % voltage)
-        self._errorCheck()
+#         self._errorCheck()
 
         
     def setSquareWave(self, low_voltage, high_voltage, frequency):
