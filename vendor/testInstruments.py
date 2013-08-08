@@ -25,8 +25,9 @@ if __name__ == "__main__":
     while True:
         loop += 1
         print "**********************************************************", loop
-        powerSupply.setVoltage(random.randint(4, 16), 2, 2)
+#         powerSupply.setVoltage(random.randint(4, 16), 2, 2)
 
+        dcsource.crowBar("OFF")
         dmm.setDcVoltsMode()
         switchMatrix.closeSwitch("DMM", (1, 1))
         switchMatrix.closeSwitch("DCSOURCE", (1, 3))
@@ -35,6 +36,7 @@ if __name__ == "__main__":
         sleep(2)
         print "dmm  : ", dmm.takeMeasurement(), " DC volts"
         print "ideal: ", v
+        dcsource.crowBar("ON")
         switchMatrix.openAllSwitches()
         sleep(1)
         
