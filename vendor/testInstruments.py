@@ -25,7 +25,7 @@ if __name__ == "__main__":
     while True:
         loop += 1
         print "**********************************************************", loop
-#         powerSupply.setVoltage(random.randint(4, 16), 2, 2)
+        powerSupply.setVoltage(random.randint(10, 20), 3, 3)
 
         dcsource.crowBar("OFF")
         dmm.setDcVoltsMode()
@@ -33,34 +33,30 @@ if __name__ == "__main__":
         switchMatrix.closeSwitch("DCSOURCE", (1, 3))
         v = random.random()
         dcsource.setDcVoltage(v)
-        sleep(2)
         print "dmm  : ", dmm.takeMeasurement(), " DC volts"
         print "ideal: ", v
         dcsource.crowBar("ON")
         switchMatrix.openAllSwitches()
-        sleep(1)
         
-        dmm.setAcVoltsMode()
-        switchMatrix.closeSwitch("DMM", (1, 1))
-        switchMatrix.closeSwitch("FGEN", (1, 3))
-        v = random.random()
-        fgen.setSineWave(-v, v, random.randint(1, 1000))
-        sleep(2)
-        print "dmm  : ", dmm.takeMeasurement(), " AC volts"
-        print "ideal: ", v / 2
-        switchMatrix.openAllSwitches()
-        sleep(1)
+#         dmm.setAcVoltsMode()
+#         switchMatrix.closeSwitch("DMM", (1, 1))
+#         switchMatrix.closeSwitch("FGEN", (1, 3))
+#         v = random.random()
+#         fgen.setSineWave(-v, v, random.randint(1, 1000))
+#         print "dmm  : ", dmm.takeMeasurement(), " AC volts"
+#         print "ideal: ", v / 2
+#         switchMatrix.openAllSwitches()
         
         dmm.setFrequencyMode()
         switchMatrix.closeSwitch("DMM", (1, 1))
         switchMatrix.closeSwitch("FGEN", (1, 3))
         v = random.randint(1, 1000)
         fgen.setSineWave(-1, 1, v)
-        sleep(2)
+#         sleep(2)
         print "dmm  : ", dmm.takeMeasurement(), " Hertz"
         print "ideal: ", v
         switchMatrix.openAllSwitches()
-        sleep(1)
+#         sleep(1)
         
 #         dmm.setAcVoltsMode()
 #         print dmm.takeMeasurement()
@@ -76,13 +72,18 @@ if __name__ == "__main__":
 #         fgen.setSineWave(-random.random(), random.random(), random.randint(1, 1000))
 #     
 #         dcsource.setDcVoltage(random.random())
-        eload.setCurrentMode(random.random())
-        eload.inputOn()
-        sleep(1)
-        print "eload on: ", eload.measureCurrent()
-        print "Power supply loaded: ", powerSupply.measureCurrent()
-        eload.inputOff()
-        sleep(1)
-        print "eload off: ", eload.measureCurrent()
-        print "Power supply unloaded: ", powerSupply.measureCurrent()
+#         eload.setCurrentMode(random.random())
+#         eload.inputOn()
+#         sleep(1)
+#         print "eload on: ", eload.measureCurrent()
+#         print "Power supply loaded: ", powerSupply.measureCurrent()
+#         eload.inputOff()
+#         sleep(1)
+#         print "eload off: ", eload.measureCurrent()
+#         print "Power supply unloaded: ", powerSupply.measureCurrent()
+
+        print "Waiting for CX to boot..."
+        sleep(60)
         powerSupply.inputOff()
+        print "Waiting for CX to shut down..."
+        sleep(10)
