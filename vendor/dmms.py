@@ -214,7 +214,13 @@ class DmmKeithley2750(DmmBase):
 
         sleep(self.delayDict[self.currentMode])
         
-        result = self.target.ask(":FETC?")     
+        go = True
+        while go:
+            try:
+                result = self.target.ask(":FETC?")
+                go = False
+            except:
+                print "Continuing with loop..."     
         errorCheckKeithley27xx(self.target)
         return result                          
 

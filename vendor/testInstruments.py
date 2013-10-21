@@ -82,8 +82,8 @@ if __name__ == "__main__":
 #         print "eload off: ", eload.measureCurrent()
 #         print "Power supply unloaded: ", powerSupply.measureCurrent()
 
-        print "Waiting for CX to boot..."
-        sleep(60)
-        powerSupply.inputOff()
-        print "Waiting for CX to shut down..."
-        sleep(10)
+#         print "Waiting for CX to boot..."
+#         sleep(60)
+#         powerSupply.inputOff()
+#         print "Waiting for CX to shut down..."
+#         sleep(10)
