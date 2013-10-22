@@ -202,26 +202,27 @@ class DmmKeithley2750(DmmBase):
 
 
     def takeMeasurement(self):
-        self.target.write(":INIT:IMM")      
-        self.target.write("*TRG")             
-#         self.target.write(":*OPC") #set bit 0 in ESR when done
-#         opc = 0
-#         while opc == 0:
-#             dmmStatus = ""
-#             while dmmStatus == "":
-#                 dmmStatus = self.target.ask(":*ESR?")
-#             opc = int(dmmStatus) & 1
-
-        sleep(self.delayDict[self.currentMode])
-        
         go = True
         while go:
             try:
+                self.target.write(":INIT:IMM")      
+                self.target.write("*TRG")             
+        #         self.target.write(":*OPC") #set bit 0 in ESR when done
+        #         opc = 0
+        #         while opc == 0:
+        #             dmmStatus = ""
+        #             while dmmStatus == "":
+        #                 dmmStatus = self.target.ask(":*ESR?")
+        #             opc = int(dmmStatus) & 1
+        
+                sleep(self.delayDict[self.currentMode])
+        
                 result = self.target.ask(":FETC?")
+                errorCheckKeithley27xx(self.target)
                 go = False
             except:
+                self.target.write("*RST")  
                 print "Continuing with loop..."     
-        errorCheckKeithley27xx(self.target)
         return result                          
 
       
